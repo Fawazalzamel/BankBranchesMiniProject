@@ -1,0 +1,33 @@
+﻿@model List<BankBranch>
+
+
+
+
+<table class="table">
+    <thead>
+    <td>ID</td>
+    <td>Branch Manger Name</td>
+    <td>Branch Location Name</td>
+    <td>Location URL</td>
+    <td>Amount of Employees in Branch</td>
+    </thead>
+
+    <tbody>
+        @foreach (var branchdetails in Model)
+        {
+            <tr>
+
+                <td>@branchdetails.Id</td>
+                <td>@branchdetails.BranchManager</td>
+                <td>@branchdetails.LocationName</td>
+                <td><a href= "@branchdetails.LocationURL" target="_blank">Click for Location </a></td>
+                <td>@branchdetails.EmployeeCount</td>
+            </tr> 
+        }
+        <button type="submit">Create New Branch  </button>
+
+    </tbody>
+</table>
+
+
+

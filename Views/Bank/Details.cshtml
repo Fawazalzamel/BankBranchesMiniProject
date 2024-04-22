@@ -1,0 +1,29 @@
+﻿@model BankBranch
+<table class="table">
+    <thead>
+    <td>ID</td>
+    <td>Branch Manger Name</td>
+    <td>Branch Location Name</td>
+    <td>Location URL</td>
+    <td>Amount of Employees in Branch</td>
+    </thead>
+
+    <tbody>
+        
+        
+            <tr>
+
+                <td>@Model.Id</td>
+                <td>@Model.BranchManager</td>
+                <td>@Model.LocationName</td>
+                <td><a href= "@Model.LocationURL" target="_blank">Click for Location </a></td>
+                <td>@Model.EmployeeCount</td>
+            </tr> 
+        
+        <button type="submit">Create New Branch  </button>
+
+    </tbody>
+</table>
+
+
+
