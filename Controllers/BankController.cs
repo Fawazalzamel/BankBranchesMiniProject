@@ -15,12 +15,21 @@ namespace BankBranchesMiniProject.Controllers
         }
         public IActionResult Index()
         {
+            var viewModel = new BankDashboardViewModel();
+
             using (var context =  _bankContext)
             {
-                var banks = context.BankBranches.ToList();
+               
 
-                return View(banks);
+                viewModel.TotalBranches = context.BankBranches.Count();
+                viewModel.TotalEmployees = context.Employees.Count();
+
+                viewModel.BranchWithMostEmployees = context.BankBranches.OrderByDescending(b => b.Employees.Count()).FirstOrDefault();
+
+                viewModel.BranchList = context.BankBranches.ToList();
+
             }
+            return View(viewModel);
 
         }
 
