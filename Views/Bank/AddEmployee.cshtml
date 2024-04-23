@@ -1,0 +1,24 @@
+﻿@model Employee
+
+@using (Html.BeginForm("Add", "Employee", FormMethod.Post))
+{
+
+    <form >
+
+
+
+        <label for="employeeName">Employee Name :</label>
+        <input type="text" id="employeeName" name="EmployeeName" required />
+
+        <label for="employeeCivilId">Employee CivilId:</label>
+        <input type="text" id="employeeCivilId" name="EmployeeCivilId" required />
+
+        <label for="employeePosition">Employee Position:</label>
+        <input type="text" id="employeePosition" name="EmployeePosition" required />
+
+
+
+        <button type="submit">Submit</button>
+
+    </form>
+}

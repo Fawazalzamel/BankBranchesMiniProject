@@ -2,12 +2,17 @@
 
 namespace BankBranchesMiniProject.Models
 {
-
+    
     public class BankContext : DbContext
     {
-        public DbSet<BankBranch> BankBranches { get; set; }
+        public BankContext(DbContextOptions<BankContext> options) : base(options) {
+            
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite("Data Source=bank.dp");
+        }
+
+        public DbSet<BankBranch> BankBranches { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
+        
     }
 }

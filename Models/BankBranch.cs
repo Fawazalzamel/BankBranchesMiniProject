@@ -15,6 +15,9 @@ namespace BankBranchesMiniProject.Models
 
         [Range(1,100)]
         public int EmployeeCount { get; set; }
-        
+
+        public List<Employee> Employees { get; set;}
+
+
     }
 }

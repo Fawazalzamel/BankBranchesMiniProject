@@ -1,19 +1,21 @@
 ﻿using BankBranchesMiniProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace BankBranchesMiniProject.Controllers
 {
     public class BankController : Controller
     {
-
-        private static List<BankBranch> bankBranchData = [
-        new BankBranch {Id=1, BranchManager="Waleed",LocationName="Kaifan",LocationURL="https://maps.app.goo.gl/P7vvY2tDXqPbsGpL7",EmployeeCount=20},
-        new BankBranch {Id=2, BranchManager="Mohammed",LocationName="Adaliya",LocationURL="https://maps.app.goo.gl/wK6Hc6BNACFiV7sR6",EmployeeCount=30}
-        ];
+        private readonly BankContext _bankContext;
+       
+        public BankController(BankContext bankContext)
+        {
+            _bankContext = bankContext;
+        }
         public IActionResult Index()
         {
-            using (var context = new BankContext())
+            using (var context =  _bankContext)
             {
                 var banks = context.BankBranches.ToList();
 
@@ -24,10 +26,10 @@ namespace BankBranchesMiniProject.Controllers
 
         public IActionResult Details(int Id) {
 
-            using (var context = new BankContext()) {
+            using (var context =  _bankContext) {
 
-                var banks = context.BankBranches.FirstOrDefault(b => b.Id == Id);
-                if (banks == null)
+                var banks = context.BankBranches.Include(r => r.Employees).SingleOrDefault(r=>r.Id==Id);
+                if (banks == null) 
                 {
                     return NotFound();
                 }
@@ -38,7 +40,7 @@ namespace BankBranchesMiniProject.Controllers
         //[HttpGet]
         //public IActionResult Edit(int Id)
         //{
-             
+
         //    return View(); 
         //}
 
@@ -54,6 +56,57 @@ namespace BankBranchesMiniProject.Controllers
         //    }
         //    return RedirectToAction("Details");
         //}
+
+
+
+
+        [HttpGet]
+        public IActionResult AddEmployee(int id)
+        {
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult AddEmployee(int id, IFormCollection Form)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var employeeName = Form["EmployeeName"];
+                var employeeCivilId = Form["EmployeeCivilId"];
+                var employeePosition = Form["EmployeePosition"];
+                
+                var m = new Employee();
+
+                m.Name = employeeName;
+                m.civilID = double.Parse(employeeCivilId);
+                m.Position = employeePosition;
+                
+                
+                using (var context =  _bankContext)
+                {
+                  var  branch = context.BankBranches.Find(id);
+                    m.Workplace = branch; 
+                    context.Employees.Add(m);
+                    context.SaveChanges();
+                }
+
+
+
+                return RedirectToAction("Index");
+            }
+            return View(Form);
+
+        }
+
+
+
+
+
+
+
 
 
 
@@ -89,7 +142,7 @@ namespace BankBranchesMiniProject.Controllers
                 e.LocationURL = locationURL;
                 e.EmployeeCount = int.Parse(employeeCount);
 
-                using (var context = new BankContext())
+                using (var context = _bankContext)
                 {
                    context.BankBranches.Add(e);
                     context.SaveChanges();
