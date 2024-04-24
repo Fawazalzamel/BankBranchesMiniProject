@@ -1,20 +1,24 @@
-﻿<form method="post" action="/Bank/Create">
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 
-    <label for="id"> Id:</label>
+@inject IViewLocalizer Localizer
+
+<form method="post" action="/Bank/Create">
+
+    <label for="id"> @Localizer["ID"]: </label>
     <input type="text" id="id" name="Id" required />
 
-    <label for="branchManager">Branch Manager:</label>
+    <label for="branchManager">@Localizer["BranchManger"]:</label>
     <input type="text" id="branchManager" name="BranchManager" required />
 
-    <label for="locationName">LocationName:</label>
-    <input type="text" id="locationName" name="LocationName" required />
+    <label for="locationName">@Localizer["LocationName"]:</label>
+    <input type="text" id="locationName" name="LocationName" required /> 
 
-    <label for="locationURL">LocationURL:</label>
+    <label for="locationURL">@Localizer["LocationURL"]:</label>
     <input type="url" id="locationURL" name="LocationURL" required />
     
-    <label for="employeeCount">Employee Count:</label>
+    <label for="employeeCount">@Localizer["EmployeeCount"]:</label>
     <input type="text" id="employeeCount" name="EmployeeCount" required />
 
-    <button type="submit">Submit</button>
+    <button type="submit">@Localizer["Submit"]</button>
 
 </form>

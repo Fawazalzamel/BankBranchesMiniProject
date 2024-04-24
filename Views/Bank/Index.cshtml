@@ -1,10 +1,14 @@
-﻿@model BankDashboardViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model BankDashboardViewModel
+@inject IViewLocalizer Localizer
+<h1>@Localizer["WelcomeMessage"]</h1>
+
 
 <div class="row">
     <div class="col-md-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Total Branches</h5>
+                <h5 class="card-title">@Localizer["TotalBranches"]</h5>
                 <p class="card-text">@Model.TotalBranches</p>
             </div>
         </div>
@@ -12,15 +16,13 @@
     <div class="col-md-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Total Employees</h5>
+                <h5 class="card-title">@Localizer["TotalEmployees"]</h5>
                 <p class="card-text">@Model.TotalEmployees</p>
             </div>
         </div>
     </div>
-    <!-- Continue with other cards as needed -->
 </div>
 
-<!-- Iterate over BranchList -->
 <div class="row">
     @foreach (var branch in Model.BranchList)
     {
